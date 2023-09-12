@@ -2,11 +2,10 @@ package com.example.pr2.dao.impl
 
 import com.example.pr2.dao.BaseDao
 import com.example.pr2.model.Car
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 
-@Component
-class CarDao: BaseDao<Car>(
-    initData = mutableListOf(
-        Car(0, )
-    )
-)
+
+@Repository
+interface CarDao : BaseDao<Car>{
+    fun findCarsByModelContainsIgnoreCase(model: String): List<Car>?
+}

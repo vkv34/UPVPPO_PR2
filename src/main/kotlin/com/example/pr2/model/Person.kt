@@ -1,11 +1,22 @@
 package com.example.pr2.model
 
-class Person(
-    id: Int = 0,
-    val name: String = "",
-    val surname: String = "",
-    val lastname: String = "",
+import jakarta.persistence.Entity
+import jakarta.persistence.Table
+import jakarta.validation.constraints.Min
+import jakarta.validation.constraints.NotBlank
+
+@Entity
+@Table(name = "Person")
+data class Person(
+    @field:NotBlank(message = "Field name required")
+    val name: String = "-",
+    @field:NotBlank (message = "Field surname required")
+    val surname: String = "-",
+    @NotBlank(message = "Field lastname required")
+    val lastname: String = "-",
+    @NotBlank(message = "Field age required")
+    @Min(value =  0, message = "Age must more then 0")
     val age: Int = 0
-) : BaseEntity(id){
+) : BaseEntity(){
     override fun toString(): String = "$surname $name $lastname возраст:$age"
 }

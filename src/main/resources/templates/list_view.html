@@ -10,23 +10,33 @@
 <div th:insert="navbar"></div>
 
 <div class="table-responsive-sm container-sm">
-<!--    <div class="p-2"></div>-->
+
+    <form class="input-group rounded" method="get" action="">
+        <input name="search" type="search" class="form-control rounded" placeholder="Поиск" aria-label="Search"
+               aria-describedby="search-addon"/>
+        <span class="input-group-text border-0" id="search-addon">
+            <input type="submit" class="fas fa-search" value="Найти"></input>
+        </span>
+    </form>
+
+    <!--    <div class="p-2"></div>-->
     <table class="table table-striped text-center">
         <!--/*@thymesVar id="entity" type="com.example.pr2.model.BaseEntity"*/-->
         <!--/*@thymesVar id="data" type="kotlin.collections.AbstractCollection<com.example.pr2.model.BaseEntity>"*/-->
         <tr th:each="entity, iter : ${data}">
             <!--/*@thymesVar id="iter" type="org.thymeleaf.engine.IterationStatusVar"*/-->
-            <td class="p-3" th:text="${iter.count}"> </td>
-            <td class="p-3" style="column-span: 3" th:text="${entity}"> </td>
+            <td class="p-3" th:text="${iter.count}"></td>
+            <td class="p-3" style="column-span: 3" th:text="${entity}"></td>
             <td class="" style="padding-right: 5%">
                 <div class="container-sm">
                     <div class="d-flex flex-row justify-content-end align-items-center">
                         <!--/*@thymesVar id="path" type="java.lang.String"*/-->
                         <form th:action="@{{path}/{id}/edit(path = ${path}, id = ${entity.getId()})}">
-<!--                            <input type="hidden" name="_method" value="patch">-->
+                            <!--                            <input type="hidden" name="_method" value="patch">-->
                             <input class="btn btn-primary" type="submit" value="Изменить">
                         </form>
-                        <form class="px-1" th:method="DELETE" th:action="@{{path}/{id}/delete(path = ${path}, id = ${entity.getId()})}">
+                        <form class="px-1" th:method="DELETE"
+                              th:action="@{{path}/{id}/delete(path = ${path}, id = ${entity.getId()})}">
                             <input type="hidden" name="_method" value="delete">
                             <input class="btn btn-danger" type="submit" value="Удалить">
                         </form>

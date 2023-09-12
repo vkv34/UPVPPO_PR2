@@ -2,7 +2,9 @@ package com.example.pr2.dao.impl
 
 import com.example.pr2.dao.BaseDao
 import com.example.pr2.model.Product
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 
-@Component
-class ProductDao: BaseDao<Product>()
+@Repository
+interface ProductDao: BaseDao<Product>{
+    fun findAllByNameContainsIgnoreCase(name: String): Collection<Product>?
+}

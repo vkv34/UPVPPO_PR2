@@ -17,5 +17,6 @@ class PeopleController (
     path = "people",
     views = BaseViews(
         editView = "edit_people"
-    )
+    ),
+    search = { personDao.findPeopleByNameContainsIgnoreCase(it) }
 )

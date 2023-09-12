@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping
 @RequestMapping("/cars")
 @Controller
 class CarsController(
-    @Autowired carsDao: CarDao
-): BaseController<Car>(
+    @Autowired val carsDao: CarDao
+) : BaseController<Car>(
     dao = carsDao,
     path = "cars",
     views = BaseViews(
         editView = "edit_car"
-    )
+    ),
+    search = { carsDao.findCarsByModelContainsIgnoreCase(it) }
 )
