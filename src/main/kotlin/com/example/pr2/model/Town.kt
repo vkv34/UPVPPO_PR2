@@ -1,6 +1,8 @@
 package com.example.pr2.model
 
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import jakarta.validation.constraints.NotBlank
 
@@ -14,7 +16,9 @@ data class Town(
     @NotBlank(message = "Field name required")
     val population: Int = 0,
     @NotBlank(message = "Field name required")
-    val country: String = ""
+    val country: String = "",
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "town")
+    val peoples: Set<Person> = setOf()
 ) : BaseEntity(){
     override fun toString(): String = "${country}, $name, площадь: $square км2, население: $population"
 }

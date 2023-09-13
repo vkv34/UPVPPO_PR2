@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>NewPeople</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
 </head>
 <body class="container-fluid">
 <!--<div th:insert="navbar"></div>-->
@@ -16,11 +19,11 @@
     <form class="" th:method="PATCH" th:action="@{patch}" th:object="${data}">
         <div class="form-group row p-2">
             <label class="col" for="name">Имя:</label>
-            <input type="text" class="form-control col" id="name" name="name" th:field="*{name}" >
+            <input type="text" class="form-control col" id="name" name="name" th:field="*{name}">
         </div>
         <div class="form-group row p-2">
             <label class="col" for="surname">Фамилия:</label>
-            <input type="text" class="form-control col" id="surname" name="surname"  th:field="*{surname}" required>
+            <input type="text" class="form-control col" id="surname" name="surname" th:field="*{surname}" required>
         </div>
         <div class="form-group row p-2">
             <label class="form-label col" for="lastname">Отчество:</label>
@@ -29,6 +32,14 @@
         <div class="form-group row p-2">
             <label class="col" for="age">Возраст:</label>
             <input type="number" class="form-control col" id="age" name="age" th:field="*{age}" required>
+        </div>
+        <div class="form-group row p-2">
+            <label class="col" for="town">Город:</label>
+            <select class="form-control col form-select" id="town" name="age" th:field="*{town}" required>
+                <!--/*@thymesVar id="towns" type="kotlin.collections.AbstractIterator<com.example.pr2.model.Town>"*/-->
+                <!--/*@thymesVar id="option" type="com.example.pr2.model.Town"*/-->
+                <option th:each="option : ${towns}" th:text="${option.name}"></option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>
