@@ -3,9 +3,7 @@ package com.example.pr2.dao.controller
 import com.example.pr2.dao.BaseDao
 import com.example.pr2.model.BaseEntity
 import jakarta.validation.Valid
-import jakarta.validation.ValidationException
 import org.springframework.ui.Model
-import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
 import kotlin.jvm.optionals.getOrNull
 
@@ -62,25 +60,26 @@ abstract class BaseController<T : BaseEntity>(
     open fun patch(
         @PathVariable id: Long,
         @ModelAttribute @Valid entity: T,
-        bindingResult: BindingResult,
+//        bindingResult: BindingResult,
         model: Model
     ): String {
         model.addAttribute("path", path)
 
         entity.id = id
-        if (bindingResult.hasErrors()){
-            dao.delete(entity)
-            throw ValidationException(bindingResult.suppressedFields.joinToString { ", " })
-        }
+//        if (bindingResult.hasErrors()){
+//            dao.delete(entity)
+//            print(bindingResult.getRawFieldValue("name"))
+//            throw ValidationException(bindingResult.suppressedFields.joinToString { ", " })
+//        }
         dao.save(entity)
         return "redirect:/$path"
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/delete/{id}")
     open fun delete(
-        @PathVariable id: Long
+        @PathVariable id: Int
     ): String {
-        dao.delete(dao.findById(id).orElseThrow())
+        dao.delete(dao.findById(id.toLong()).orElseThrow())
         return "redirect:/$path"
     }
 
@@ -103,14 +102,14 @@ abstract class BaseController<T : BaseEntity>(
             "data",
             search(search)
         )
-//        model.addAttribute("path", path)
+        model.addAttribute("path", path)
         return "${views.listView}"
     }
 
-    @ExceptionHandler(ValidationException::class)
-    @ResponseBody
-    protected fun handleDMSRESTException(objException: ValidationException?): String  {
-        return objException?.message?.ifBlank { "Validation Errors" }?:"Validation Errors"
-    }
+//    @ExceptionHandler(ValidationException::class)
+//    @ResponseBody
+//    protected fun handleDMSRESTException(objException: ValidationException?): String  {
+//        return objException?.message?.ifBlank { "Validation Errors" }?:"Validation Errors"
+//    }
 
 }

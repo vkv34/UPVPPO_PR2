@@ -5,15 +5,15 @@ import com.example.pr2.dao.controller.BaseViews
 import com.example.pr2.dao.impl.PersonDao
 import com.example.pr2.dao.impl.TownDao
 import com.example.pr2.model.Person
+import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/people")
 @Controller
-class PeopleController (
+class PeopleController(
     @Autowired val personDao: PersonDao,
     @Autowired val townDao: TownDao
 ) : BaseController<Person>(
@@ -23,9 +23,27 @@ class PeopleController (
         editView = "edit_people"
     ),
     search = { personDao.findPeopleByNameContainsIgnoreCase(it) }
-){
-    override fun patch(id: Long, entity: Person, bindingResult: BindingResult, model: Model): String {
-        model.addAttribute("towns", townDao.findAll())
-        return super.patch(id, entity, bindingResult, model)
+) {
+    @GetMapping("/{id}/edit")
+    override fun getEditView(
+        @ModelAttribute entity: Person,
+        @PathVariable id: Long,
+        model: Model
+    ): String {
+        val towns = townDao.findAll().toList()
+        model.addAttribute("towns", towns)
+        return super.getEditView(entity, id, model)
+    }
+
+    @PatchMapping("/{id}/patch")
+    override fun patch(
+        @PathVariable id: Long,
+        @ModelAttribute @Valid entity: Person,
+//        bindingResult: BindingResult,
+        model: Model,
+//        @RequestParam(value = "town") town: String
+    ): String {
+        entity.town = townDao.findAllByNameContainsIgnoreCase(entity.townString)?.first()
+        return super.patch(id, entity, model)
     }
 }

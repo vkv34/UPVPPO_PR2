@@ -33,12 +33,14 @@
             <label class="col" for="age">Возраст:</label>
             <input type="number" class="form-control col" id="age" name="age" th:field="*{age}" required>
         </div>
+        <input type="hidden" name="town" th:field="*{town}" >
         <div class="form-group row p-2">
-            <label class="col" for="town">Город:</label>
-            <select class="form-control col form-select" id="town" name="age" th:field="*{town}" required>
-                <!--/*@thymesVar id="towns" type="kotlin.collections.AbstractIterator<com.example.pr2.model.Town>"*/-->
-                <!--/*@thymesVar id="option" type="com.example.pr2.model.Town"*/-->
-                <option th:each="option : ${towns}" th:text="${option.name}"></option>
+            <label class="col" for="townString">Город:</label>
+            <select class="form-control col form-select" id="townString" name="town" th:field="*{townString}">
+                <!--/*@thymesVar id="towns" type="kotlin.collections.AbstractCollection<com.example.pr2.model.Town>"*/-->
+
+                <option th:each="option: ${towns}" th:text="${option.name}" th:value="${option.name}"></option>
+
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Сохранить</button>
