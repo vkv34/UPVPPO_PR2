@@ -2,10 +2,9 @@ package com.example.pr2.dao.controller
 
 import com.example.pr2.dao.BaseDao
 import com.example.pr2.model.BaseEntity
-import jakarta.validation.Valid
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-import kotlin.jvm.optionals.getOrNull
+import javax.validation.Valid
 
 
 abstract class BaseController<T : BaseEntity>(
@@ -34,7 +33,7 @@ abstract class BaseController<T : BaseEntity>(
 
         model.addAttribute(
             "data",
-            dao.findById(id).getOrNull() ?: "Ничего не найдено"
+            dao.findById(id).orElseThrow() ?: "Ничего не найдено"
         )
         model.addAttribute("path", path)
 
@@ -51,7 +50,7 @@ abstract class BaseController<T : BaseEntity>(
         model.addAttribute("path", path)
         model.addAttribute(
             "data",
-            dao.findById(id).getOrNull() ?: "Ничего не найдено"
+            dao.findById(id).get()?: "Ничего не найдено"
         )
         return "${views.editView}"
     }

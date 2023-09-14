@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>EditCar</title>
@@ -14,7 +14,7 @@
     <!--/*@thymesVar id="path" type="java.lang.String"*/-->
     <!--/*@thymesVar id="entity" type="com.example.pr2.model.BaseEntity"*/-->
     <!--/*@thymesVar id="data" type="com.example.pr2.model.Car"*/-->
-    <form class="" th:method="PATCH" th:action="@{patch}" th:object="${data}">
+    <form class="" th:method="PATCH" th:action="@{patch}" th:object="${data}" >
         <div class="form-group row p-2">
             <label class="col" for="name">Бренд:</label>
             <input type="text" class="form-control col" id="name" name="name" th:field="*{brand}" required>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
+
+    <title>Title</title>
+</head>
+<body>
+<section class="vh-100" style="background-color: #508bfc;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <!--/*@thymesVar id="person" type="com.example.pr2.model.Person"*/-->
+                        <form class="" th:method="POST" th:action="@{/regestration}" th:object="${person}">
+                            <div class="form-group row p-2">
+                                <label class="col" for="name">Имя:</label>
+                                <input type="text" class="form-control col" id="name" name="name" th:field="*{name}">
+                            </div>
+                            <div class="form-group row p-2">
+                                <label class="col" for="surname">Фамилия:</label>
+                                <input type="text" class="form-control col" id="surname" name="surname"
+                                       th:field="*{surname}" required>
+                            </div>
+                            <div class="form-group row p-2">
+                                <label class="form-label col" for="lastname">Отчество:</label>
+                                <input type="text" class="form-control col" id="lastname" name="lastname"
+                                       th:field="*{lastname}" required>
+                            </div>
+                            <div class="form-group row p-2">
+                                <label class="col" for="login">Логин:</label>
+                                <input type="email" class="form-control col" id="login" name="age" th:field="*{login}"
+                                       required>
+                            </div>
+                            <div class="form-group row p-2">
+                                <label class="col" for="password">Пароль:</label>
+                                <input type="password" class="form-control col" id="password" name="age" th:field="*{password}"
+                                       required>
+                            </div>
+                            <div class="form-group row p-2">
+                                <label class="col" for="age">Возраст:</label>
+                                <input type="number" class="form-control col" id="age" name="age" th:field="*{age}"
+                                       required>
+                            </div>
+                            <input type="hidden" name="town" th:field="*{town}">
+                            <div class="form-group row p-2">
+                                <label class="col" for="townString">Город:</label>
+                                <select class="form-control col form-select" id="townString" name="town"
+                                        th:field="*{townString}">
+                                    <!--/*@thymesVar id="towns" type="kotlin.collections.AbstractCollection<com.example.pr2.model.Town>"*/-->
+
+                                    <option th:each="option: ${towns}" th:text="${option.name}"
+                                            th:value="${option.name}"></option>
+
+                                </select>
+                            </div>
+                            <button th:href="@{/login}" type="submit" class="btn btn-primary">Зарегестрироваться</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

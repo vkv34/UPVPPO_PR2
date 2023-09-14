@@ -5,11 +5,11 @@ import com.example.pr2.dao.controller.BaseViews
 import com.example.pr2.dao.impl.PersonDao
 import com.example.pr2.dao.impl.TownDao
 import com.example.pr2.model.Person
-import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RequestMapping("/people")
 @Controller

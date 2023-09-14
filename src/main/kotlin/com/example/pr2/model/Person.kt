@@ -1,9 +1,10 @@
 package com.example.pr2.model
 
-import jakarta.persistence.*
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.Size
+import javax.persistence.*
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.Size
+
 
 @Entity
 @Table(name = "Person")
@@ -25,7 +26,12 @@ data class Person(
     val townString: String = "",
     @OneToOne(optional = true)
     @JoinColumn(name = "user_id", unique = true, nullable = true, )
-    val user: User? = null
+    val user: User? = null,
+
+    @Transient
+    val login: String = "",
+    @Transient
+    val password: String = ""
 ) : BaseEntity(){
     override fun toString(): String = "$surname $name $lastname возраст:$age, город: ${town?.name}"
 }
